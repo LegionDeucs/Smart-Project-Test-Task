@@ -1,0 +1,21 @@
+{
+    "name": "Foundation",
+    "rootNamespace": "",
+    "references": [
+        "GUID:15bc5bde182785045bf46b6f6ccd7bfb",
+        "GUID:1472d9978b13add4093f45682cb05ac3",
+        "GUID:8aaa62924a806ec45b388d9ccc302926",
+        "GUID:2a8678e38ec038e498f64c036d7940ef",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:2c07986ff01d7d54eadaddeb5efe8683"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
