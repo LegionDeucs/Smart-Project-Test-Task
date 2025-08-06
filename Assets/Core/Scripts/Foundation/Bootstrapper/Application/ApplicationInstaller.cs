@@ -19,6 +19,7 @@ namespace Installers
             InstallSaveSystem();
 
             Container.Bind<LevelLoader>().FromInstance(levelLoader).AsSingle().NonLazy();
+            Container.Bind<StandaloneCoroutineRunner>().FromNewComponentOnNewGameObject().WithGameObjectName("StandaloneCoroutineRunner").AsSingle().NonLazy();
 
             InstallInputSystem();
 

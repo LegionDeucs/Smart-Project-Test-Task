@@ -41,16 +41,21 @@ public class PlayerMoveController : MonoBehaviour
 
     private void InputSystemProcessor_OnMoveInputStarted(Vector3Int direction)
     {
+        inputQueue.Add(direction);
+        if (inputQueue.Count > maxInputCount)
+            inputQueue.RemoveAt(0);
+
         if (moveTween != null)
-        {
-            inputQueue.Add(direction);
-            if(inputQueue.Count > maxInputCount) 
-                inputQueue.RemoveAt(0);
-
             return;
-        }
+        PerformMovement();
+    }
 
-        switch (NextMovePoint(direction, out Vector3 nextPosition))
+    private void PerformMovement()
+    {
+        Vector3Int input = inputQueue[0];
+        inputQueue.RemoveAt(0);
+
+        switch (NextMovePoint(input, out Vector3 nextPosition))
         {
             case MoveType.FadeMove:
             case MoveType.Move:
@@ -59,17 +64,17 @@ public class PlayerMoveController : MonoBehaviour
                     moveTween = null;
                     if (inputQueue.Count > 0)
                     {
-                        InputSystemProcessor_OnMoveInputStarted(inputQueue[0]);
-                        inputQueue.RemoveAt(0);
+                        PerformMovement();
                     }
                 });
                 moveCount++;
                 OnStep?.Invoke();
                 break;
             case MoveType.Stay:
+                if (inputQueue.Count > 0)
+                    PerformMovement();
                 break;
         }
-
     }
 
     private MoveType NextMovePoint(Vector3Int moveDirection, out Vector3 nextPosition)

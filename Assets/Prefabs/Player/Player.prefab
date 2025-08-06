@@ -200,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDuration: 0.25
   jumpPower: 0.5
-  maxInputCount: 4
+  maxInputCount: 2
 --- !u!54 &1811808147270696422
 Rigidbody:
   m_ObjectHideFlags: 0
