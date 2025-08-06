@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7698817166360920115}
   - component: {fileID: 202952969417663907}
   - component: {fileID: 4970791525991179430}
+  - component: {fileID: 2341391938581764963}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -76,6 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 4970791525991179430}
+  inputSystemProcessorContext: {fileID: 2341391938581764963}
 --- !u!114 &4970791525991179430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +91,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScene: {fileID: 11400000, guid: f8c6744053c3f9a4fa0310362a68b3e8, type: 2}
-  metaScene: {fileID: 0}
+  metaScene: {fileID: 11400000, guid: d31ab731eff8d264fa6bb1cc87ec8330, type: 2}
   levelScenes:
   - {fileID: 11400000, guid: 073ac9ca253750b439cdedfc5aae11a5, type: 2}
+--- !u!114 &2341391938581764963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2936080493673617788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af8515273d5acd43afdf19279f13de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

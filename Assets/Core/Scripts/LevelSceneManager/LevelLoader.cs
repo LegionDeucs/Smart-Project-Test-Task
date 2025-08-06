@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,50 +14,45 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLoadingScene(Action callback = null)
     {
-        LoadSceneAsynk(loadingScene, LoadSceneMode.Single, callback);
+        LoadScene(loadingScene, LoadSceneMode.Single, callback);
     }
 
-    public void UnloadLoadingScene(Action callback = null)
+    public async Task UnloadLoadingScene(Action callback = null)
     {
-        UnloadSceneAsynk(loadingScene, callback);
+        await UnloadSceneAsynk(loadingScene, callback);
     }
 
-    public void LoadLevelScene(int levelIndex, Action callback = null)
+    public async Task LoadLevelScene(int levelIndex, Action callback = null)
     {
-        LoadSceneAsynk(levelScenes[(int)Mathf.Repeat(levelIndex, levelScenes.Count)], LoadSceneMode.Additive, callback);
+        await LoadSceneAsynk(levelScenes[(int)Mathf.Repeat(levelIndex, levelScenes.Count)], LoadSceneMode.Additive, callback);
     }
 
-    public void LoadMetaScene(Action callback)
+    public async Task LoadMetaScene(Action callback = null)
     {
-        LoadSceneAsynk(metaScene, LoadSceneMode.Additive, callback);
+        await LoadSceneAsynk(metaScene, LoadSceneMode.Additive, callback);
     }
 
-    public void UnloadMetaScene(Action callback)
+    public async Task UnloadMetaScene(Action callback)
     {
-        UnloadSceneAsynk(metaScene, callback);
+        await UnloadSceneAsynk(metaScene, callback);
     }
 
-    private void LoadSceneAsynk(SceneStaticData sceneData, LoadSceneMode sceneLoadMode, Action callback = null)
+    private async Task LoadSceneAsynk(SceneStaticData sceneData, LoadSceneMode sceneLoadMode, Action callback = null)
     {
-        var asyncOperation = SceneManager.LoadSceneAsync(sceneData.BuildIndex, sceneLoadMode);
+        await SceneManager.LoadSceneAsync(sceneData.BuildIndex, sceneLoadMode);
 
-        asyncOperation.completed += AsyncOperation_completed;
-        void AsyncOperation_completed(AsyncOperation operation)
-        {
-            operation.completed -= AsyncOperation_completed;
-            callback?.Invoke();
-        }
+        callback?.Invoke();
     }
 
-    private void UnloadSceneAsynk(SceneStaticData sceneData, Action callback)
+    private void LoadScene(SceneStaticData sceneData, LoadSceneMode sceneLoadMode, Action callback = null)
     {
-        var asyncOperation = SceneManager.UnloadSceneAsync(sceneData.BuildIndex);
+        SceneManager.LoadScene(sceneData.BuildIndex, sceneLoadMode);
+        callback?.Invoke();
+    }
 
-        asyncOperation.completed += AsyncOperation_completed;
-        void AsyncOperation_completed(AsyncOperation operation)
-        {
-            operation.completed -= AsyncOperation_completed;
-            callback?.Invoke();
-        }
+    private async Task UnloadSceneAsynk(SceneStaticData sceneData, Action callback)
+    {
+        await SceneManager.UnloadSceneAsync(sceneData.BuildIndex);
+        callback?.Invoke();
     }
 }

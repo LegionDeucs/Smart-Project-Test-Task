@@ -10,7 +10,7 @@ namespace SLS
 
         public SaveLoadSystemCache saveLoadSystemCache;
         public SaveLoadSystem()
-        { 
+        {
         }
 
         public void Init()

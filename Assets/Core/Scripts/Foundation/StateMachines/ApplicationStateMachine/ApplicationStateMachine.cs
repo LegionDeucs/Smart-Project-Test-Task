@@ -7,6 +7,7 @@ public class ApplicationStateMachine : StateMachine<ApplicationStateMachineBaseS
     {
         RegisterState<BootApplicationState>();
         RegisterState<LoadingSceneApplicationState>();
+        RegisterState<MetaApplicationState>();
         RegisterState<GameApplicationState>();
     }
 

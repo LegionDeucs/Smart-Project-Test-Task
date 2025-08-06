@@ -34,6 +34,11 @@ public static partial class Extensions
         return v2i;
     }
 
+    public static Vector2Int CustomRoundToInt(this Vector2 vector, float minFracToCeil)
+    {
+        return new Vector2Int(vector.x.CustomRound(minFracToCeil), vector.y.CustomRound(minFracToCeil));
+    }
+
     public static Vector3 Abs(this Vector3 vector)
     {
         var absVector = new Vector3();
@@ -68,6 +73,10 @@ public static partial class Extensions
         v3i.y = Mathf.RoundToInt(vector.y);
         v3i.z = Mathf.RoundToInt(vector.z);
         return v3i;
+    }
+    public static Vector3Int CustomRoundToInt(this Vector3 vector, float minFracToCeil)
+    {
+        return new Vector3Int(vector.x.CustomRound(minFracToCeil), vector.y.CustomRound(minFracToCeil), vector.z.CustomRound(minFracToCeil));
     }
 
     public static Vector3 WithX(this Vector3 vector, float x) => new Vector3(x, vector.y, vector.z);

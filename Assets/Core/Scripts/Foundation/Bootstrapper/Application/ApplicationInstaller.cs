@@ -8,6 +8,9 @@ namespace Installers
     public class ApplicationInstaller : MonoInstaller
     {
         [SerializeField] private LevelLoader levelLoader;
+
+        [SerializeField] private InputSystemProcessorContext inputSystemProcessorContext;
+
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<ApplicationContext>().AsSingle().NonLazy();
@@ -17,7 +20,9 @@ namespace Installers
 
             Container.Bind<LevelLoader>().FromInstance(levelLoader).AsSingle().NonLazy();
 
-            InstallService();
+            InstallInputSystem();
+
+            InstallServices();
         }
 
         private void InstallSaveSystem()
@@ -25,8 +30,15 @@ namespace Installers
             Container.Bind<SaveLoadSystem>().AsSingle();
         }
 
-        private void InstallService()
+        private void InstallServices()
         {
+            
+        }
+
+        private void InstallInputSystem()
+        {
+            Container.Bind<InputSystemProcessorContext>().FromInstance(inputSystemProcessorContext).AsSingle().NonLazy();
+            Container.Bind<InputSystemProcessor>().AsSingle().NonLazy();
         }
     }
 }

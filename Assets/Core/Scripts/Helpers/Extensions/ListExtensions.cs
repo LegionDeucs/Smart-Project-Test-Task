@@ -58,4 +58,13 @@ public static partial class Extensions
 
         return RandomRangeWithout(0, list.Count, exclusion);
     }
+
+    public static (int, int) IndexOf<T>(this T[,] array, T item)
+    {
+        for (int row = 0; row < array.GetLength(0); row++)
+            for (int col = 0; col < array.GetLength(1); col++)
+                if (array[row, col].Equals(item))
+                    return (row, col);
+        return (-1, -1);
+    }
 }

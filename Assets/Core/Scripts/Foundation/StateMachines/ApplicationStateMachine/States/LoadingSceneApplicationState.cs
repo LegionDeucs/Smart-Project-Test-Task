@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using SLS;
+using System;
 
 namespace MyCore.StateMachine
 {
@@ -19,16 +20,33 @@ namespace MyCore.StateMachine
             
         }
 
-        public override void OnStateEnter()
+        public void NextState<T>() where T:ApplicationStateMachineBaseState
         {
-            levelLoader.LoadLoadingScene(LoadLevelScene);
+            if (typeof(T).Equals(typeof(MetaApplicationState)))
+            {
+                LoadMetaScene();
+            }
+            else if (typeof(T).Equals(typeof(GameApplicationState)))
+            {
+                LoadLevelScene();
+            }
         }
 
-        private void LoadLevelScene() => levelLoader.LoadLevelScene(sls.saveLoadSystemCache.GetLevelData(), UnloadLoadingScene);
+        public override void OnStateEnter()
+        {
+            levelLoader.LoadLoadingScene();
+        }
 
-        private void UnloadLoadingScene() => levelLoader.UnloadLoadingScene(EnterGameState);
+        private void LoadMetaScene()
+        {
+            levelLoader.LoadMetaScene(UnloadLoadingScene<MetaApplicationState>);
+        }
 
-        private void EnterGameState() => Context.StateMachine.EnterState<GameApplicationState>();
+        private void LoadLevelScene() => levelLoader.LoadLevelScene(sls.saveLoadSystemCache.GetLevelData(), UnloadLoadingScene<GameApplicationState>);
+
+        private void UnloadLoadingScene<T>() where T : ApplicationStateMachineBaseState
+            => levelLoader.UnloadLoadingScene(()=>Context.StateMachine.EnterState<T>());
+
 
         public override void OnStateExit()
         {

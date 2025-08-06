@@ -25,7 +25,7 @@ public class BootApplicationState : ApplicationStateMachineBaseState
         saveLoadSystem.Init();
 
 
-        Context.StateMachine.EnterState<LoadingSceneApplicationState>();
+        Context.StateMachine.EnterState<LoadingSceneApplicationState>().NextState<MetaApplicationState>();
     }
 
     public override void OnStateExit()
